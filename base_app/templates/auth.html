@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block title %}
+  {% if is_login %}
+    Login
+  {% else %}
+    Register
+  {% endif %}
+{% endblock title %}
+{% block content %}
+  <div class="min-vh-100 py-3 d-flex justify-content-center align-items-center">
+    <div class="p-4 p-sm-5 bg-body-tertiary border rounded rounded-2 overflow-hidden"
+         style="width: min(450px, 100%)">
+      <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form show_help=False%}
+        <button type="submit" class="btn btn-primary w-100">
+          {% if is_login %}
+            Login
+          {% else %}
+            Register
+          {% endif %}
+        </button>
+      </form>
+      <p class="text-center mt-2">
+        {% if is_login %}
+          Haven't signed up yet?
+          <a class="link link-primary text-decoration-none" href="{% url 'register' %}">
+            Sign Up
+          </a>
+        {% else %}
+          Already have an account?
+          <a class="link link-primary text-decoration-none"
+             href="{% url 'login' %}">
+            Login
+          </a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+{% endblock content %}
